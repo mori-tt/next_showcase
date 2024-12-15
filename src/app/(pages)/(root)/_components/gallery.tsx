@@ -7,6 +7,7 @@ import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import GalleryTopics from "./gallery-topics";
 
 type GalleryProps = {
   projects: {
@@ -19,8 +20,19 @@ type GalleryProps = {
 };
 
 const Gallery = (props: GalleryProps) => {
-  const [latestProject, setLatestProject] = useState(props.projects[0]);
+  const [latestProject, setLatestProject] = useState<
+    GalleryProps["projects"][0] | null
+  >(props.projects[0]);
   const [selectedTopic, setSelectedTopic] = useState<string>("All");
+
+  const handleTopicClick = (topic: string) => {
+    if (topic !== "All") {
+      setLatestProject(null);
+    } else {
+      setLatestProject(props.projects[0]);
+    }
+    setSelectedTopic(topic);
+  };
 
   const filteredProjects =
     selectedTopic === "All"
@@ -33,6 +45,10 @@ const Gallery = (props: GalleryProps) => {
     <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
       <div className="col-span-3 mx-auto">
         {/* GalleryTopics コンポーネント */}
+        <GalleryTopics
+          selectedTopic={selectedTopic}
+          handleTopicClick={handleTopicClick}
+        />
       </div>
 
       {/* 最新リリースのみ大きいカードで表示 */}
@@ -82,7 +98,6 @@ const Gallery = (props: GalleryProps) => {
         </Link>
       )}
 
-      {/* 追加 */}
       {/* それ以外のリスト */}
       {filteredProjects.map((project) => (
         <Link
