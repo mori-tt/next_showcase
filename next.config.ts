@@ -16,9 +16,7 @@ const nextConfig: NextConfig = {
 };
 
 if (process.env.NODE_ENV === "development") {
-  (async () => {
-    await setupDevPlatform();
-  })();
+  await setupDevPlatform();
 }
 
 export default nextConfig;

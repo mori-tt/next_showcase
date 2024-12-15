@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import Hero from "./_components/hero";
 import Gallery from "./_components/gallery";
 import { fetchRepoData } from "@/utils/api";
