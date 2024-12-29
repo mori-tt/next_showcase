@@ -1,3 +1,6 @@
+export const runtime = "edge";
+export const preferredRegion = "auto";
+
 import { PROJECTS } from "../../../../../_data/contents";
 import { extractOwnerAndRepo } from "@/utils/api";
 import MarkdownViewer from "./_components/markdown-viewer";
@@ -6,10 +9,9 @@ import MetaDataCard from "./_components/metadata-card";
 export default async function Detail({
   params,
 }: {
-  params: Promise<{ username: string; slug: string }>;
+  params: { username: string; slug: string };
 }) {
-  const username = (await params).username;
-  const slug = (await params).slug;
+  const { username, slug } = params;
   const repoUrl = `https://github.com/${username}/${slug}`;
 
   return (
