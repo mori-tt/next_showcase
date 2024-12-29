@@ -1,4 +1,3 @@
-export const runtime = "edge";
 import { PROJECTS } from "../../../../../_data/contents";
 import { extractOwnerAndRepo } from "@/utils/api";
 import MarkdownViewer from "./_components/markdown-viewer";
