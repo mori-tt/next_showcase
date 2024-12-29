@@ -1,5 +1,6 @@
 export const runtime = "edge";
 export const preferredRegion = "auto";
+export const dynamic = "force-dynamic";
 
 import { PROJECTS } from "../../../../../_data/contents";
 import { extractOwnerAndRepo } from "@/utils/api";
