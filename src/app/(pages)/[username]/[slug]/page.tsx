@@ -3,7 +3,6 @@ export const preferredRegion = "auto";
 export const dynamic = "force-dynamic";
 
 import { PROJECTS } from "../../../../../_data/contents";
-import { extractOwnerAndRepo } from "@/utils/api";
 import MarkdownViewer from "./_components/markdown-viewer";
 import MetaDataCard from "./_components/metadata-card";
 
