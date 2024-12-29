@@ -10,6 +10,7 @@ import {
 import { fetchRepoData } from "@/utils/api";
 import { Star } from "lucide-react";
 import Link from "next/link";
+import ReactionGroup from "./reaction-group";
 
 const MetaDataCard = async ({ repoUrl }: { repoUrl: string }) => {
   const repoData = await fetchRepoData(repoUrl);
@@ -47,7 +48,8 @@ const MetaDataCard = async ({ repoUrl }: { repoUrl: string }) => {
         </CardContent>
 
         <CardFooter className="flex-col items-start">
-          {/* リアクションボタンの設置 */}
+          {/* 追加 */}
+          <ReactionGroup contentId={repoData.id} />
         </CardFooter>
       </Card>
       <p className="text-muted-foreground text-sm p-4">
