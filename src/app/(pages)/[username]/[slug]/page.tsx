@@ -15,6 +15,12 @@ export default async function Detail({
   const { username, slug } = params;
   const repoUrl = `https://github.com/${username}/${slug}`;
 
+  const isValidUrl = PROJECTS.some((project) => project.repoUrl === repoUrl);
+
+  if (!isValidUrl) {
+    return null;
+  }
+
   return (
     <div className="md:flex-row flex flex-col max-w-7xl mx-auto gap-4">
       <div className="md:w-2/3 w-full h-full ">
@@ -25,11 +31,4 @@ export default async function Detail({
       </div>
     </div>
   );
-}
-
-export async function generateStaticParams() {
-  return PROJECTS.map(({ repoUrl }) => {
-    const { owner, repo } = extractOwnerAndRepo(repoUrl);
-    return { username: owner, slug: repo };
-  });
 }
