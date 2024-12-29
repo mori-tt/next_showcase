@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 function extractOwnerAndRepo(repoUrl: string): { owner: string; repo: string } {
   const urlParts = repoUrl.replace("https://github.com/", "").split("/");
   return { owner: urlParts[0], repo: urlParts[1] };
@@ -5,14 +7,11 @@ function extractOwnerAndRepo(repoUrl: string): { owner: string; repo: string } {
 
 async function fetchRepoDetails(owner: string, repo: string) {
   const repoResponse = await fetch(
-    `https://api.github.com/repos/${owner}/${repo}`,
-    {
-      cache: "force-cache",
-    }
+    `https://api.github.com/repos/${owner}/${repo}`
   );
 
   if (!repoResponse.ok) {
-    throw new Error("Failed to fetch repository details");
+    notFound();
   }
 
   return repoResponse.json();
@@ -28,9 +27,12 @@ async function fetchReadmeContent(
       headers: {
         Accept: "application/vnd.github.v3.raw",
       },
-      cache: "force-cache",
     }
   );
+
+  if (!readmeResponse.ok) {
+    notFound();
+  }
 
   return readmeResponse.ok ? await readmeResponse.text() : "";
 }

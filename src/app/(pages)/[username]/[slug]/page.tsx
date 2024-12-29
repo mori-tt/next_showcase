@@ -1,24 +1,19 @@
-export const runtime = "edge";
-export const preferredRegion = "auto";
-export const dynamic = "force-dynamic";
-
-import { PROJECTS } from "../../../../../_data/contents";
+// import { PROJECTS } from "../../../../../_data/contents";
+// import { extractOwnerAndRepo } from "@/utils/api";
 import MarkdownViewer from "./_components/markdown-viewer";
 import MetaDataCard from "./_components/metadata-card";
+
+// Cloudflare Pages は、現状 edge ランタイムのみをサポート
+export const runtime = "edge";
 
 export default async function Detail({
   params,
 }: {
-  params: { username: string; slug: string };
+  params: Promise<{ username: string; slug: string }>;
 }) {
-  const { username, slug } = params;
+  const username = (await params).username;
+  const slug = (await params).slug;
   const repoUrl = `https://github.com/${username}/${slug}`;
-
-  const isValidUrl = PROJECTS.some((project) => project.repoUrl === repoUrl);
-
-  if (!isValidUrl) {
-    return null;
-  }
 
   return (
     <div className="md:flex-row flex flex-col max-w-7xl mx-auto gap-4">
@@ -31,3 +26,10 @@ export default async function Detail({
     </div>
   );
 }
+
+// export async function generateStaticParams() {
+//   return PROJECTS.map(({ repoUrl }) => {
+//     const { owner, repo } = extractOwnerAndRepo(repoUrl);
+//     return { username: owner, slug: repo };
+//   });
+// }
